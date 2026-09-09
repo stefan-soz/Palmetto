@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palmetto RV and Camper Mobile Service | West Columbia, SC</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+<style>
+html {
+  scroll-behavior: smooth; /* Optional: adds smooth scrolling animation */
+  scroll-padding-top: 110px; /* Accounts for header height + spacing */
+}
+/* ================= SYSTEM DESIGN TOKENS (LIGHT MODE) ================= */
+:root {
+  --bg: #FFFFFF;
+  --text: #0F1115;
+  --text-muted: #555E6D;
+  --text-social: #555E6D;
+  --accent: #303C56;              /* Primary Accent Color */
+  --accent-hover: #232C40;        /* Hover Darkening */
+  --steel: rgba(48, 60, 86, .25);
+  --glass: rgba(255, 255, 255, .88);
+  --glass-scrolled: rgba(248, 249, 250, .95);
+  --border: rgba(15, 17, 21, .08);
+  --bg-card: #FFFFFF;
+  --focus-ring: #2563EB;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+body.lock-scroll {
+  overflow: hidden;
+}
+
+/* ================= ACCESSIBILITY FOCUS STATES ================= */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* ================= FULL-WIDTH HEADER ================= */
+#mainHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background: var(--glass);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, box-shadow 0.3s ease;
+}
+
+#mainHeader.scrolled {
+  height: 72px;
+  background: var(--glass-scrolled);
+  box-shadow: 0 8px 24px rgba(15, 17, 21, 0.06);
+}
+
+/* ================= HEADER INNER ================= */
+.header-inner {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+/* Square Logo Sizing Rules */
+.logo-img {
+  height: 72px;
+  width: 72px;
+  object-fit: contain;
+  display: block;
+  transition: height 0.3s ease, width 0.3s ease;
+}
+
+#mainHeader.scrolled .logo-img {
+  height: 52px;
+  width: 52px;
+}
+
+/* ================= DESKTOP NAV ================= */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+}
+
+.desktop-nav > ul {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  align-items: center;
+}
+
+.desktop-nav > ul > li {
+  position: relative;
+}
+
+.desktop-nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: color .2s ease, background-color .2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.desktop-nav > ul > li:hover > a,
+.desktop-nav > ul > li:focus-within > a {
+  color: var(--accent);
+  background: rgba(48, 60, 86, 0.06);
+}
+
+.arrow-icon {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.desktop-nav li:hover .arrow-icon,
+.desktop-nav li:focus-within .arrow-icon {
+  transform: rotate(180deg);
+}
+
+/* DROPDOWN MENU */
+.desktop-nav .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+  box-shadow: 0 12px 32px rgba(15, 17, 21, 0.08);
+  z-index: 10;
+  min-width: 260px;
+}
+
+.desktop-nav li:hover > .dropdown-menu,
+.desktop-nav li:focus-within > .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(4px);
+}
+
+.desktop-nav .dropdown-menu a {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 6px;
+  text-transform: none;
+  letter-spacing: 0;
+  width: 100%;
+  display: block;
+  color: var(--text-muted);
+}
+
+.desktop-nav .dropdown-menu a:hover,
+.desktop-nav .dropdown-menu a:focus-visible {
+  color: var(--accent);
+  background: rgba(48, 60, 86, 0.06);
+}
+
+.desktop-nav .dropdown-menu .all-services-link {
+  font-weight: 700;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+  border-radius: 6px 6px 0 0;
+}
+
+/* ================= RIGHT ZONE UTILITIES ================= */
+.right-zone {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* DESKTOP PHONE LINK */
+.phone-link {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.phone-link:hover {
+  color: var(--accent);
+}
+
+.phone-link svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+}
+
+/* BOOK NOW BUTTON (DESKTOP) */
+.book-btn {
+  text-decoration: none;
+  background: var(--accent);
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: 1px solid var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color .25s ease, border-color .25s ease, transform .2s ease, box-shadow .25s ease;
+  box-shadow: 0 4px 14px rgba(48, 60, 86, 0.2);
+}
+
+.book-btn:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(48, 60, 86, 0.28);
+}
+
+.book-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+
+/* MENU ICON (CLEAN 3-LINE TOGGLE) */
+.menu-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--accent);
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 6px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu-icon span {
+  height: 2px;
+  width: 24px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), opacity .3s ease;
+}
+
+#mainHeader.mobile-open .menu-icon span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+#mainHeader.mobile-open .menu-icon span:nth-child(2) {
+  opacity: 0;
+}
+#mainHeader.mobile-open .menu-icon span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ================= SMOOTH MOBILE OVERLAY ================= */
+.nav-dropdown {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 100px);
+  background: var(--bg);
+  padding: 24px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.35s ease,
+              top 0.3s ease,
+              height 0.3s ease;
+  pointer-events: none;
+}
+
+#mainHeader.scrolled .nav-dropdown {
+  top: 72px;
+  height: calc(100vh - 72px);
+}
+
+#mainHeader.mobile-open .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mobile-utilities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* MOBILE PHONE BUTTON */
+.mobile-phone-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  background: rgba(48, 60, 86, 0.06);
+  border: 1px solid var(--steel);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background-color 0.25s ease;
+}
+
+.mobile-phone-link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+}
+
+/* BOOK NOW BUTTON (MOBILE OVERLAY) */
+.mobile-book-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 14px rgba(48, 60, 86, 0.2);
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.mobile-book-link:active {
+  transform: scale(0.98);
+  background: var(--accent-hover);
+}
+
+.mobile-book-link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 16px 20px;
+  background: rgba(15, 17, 21, .03);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+  background: rgba(48, 60, 86, 0.08);
+}
+
+/* ACCORDION ANIMATION FOR MOBILE SUBMENUS */
+.nav-links .dropdown-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links .has-submenu.open .dropdown-wrapper { 
+  grid-template-rows: 1fr; 
+}
+
+.nav-links .has-submenu.open .arrow-icon { 
+  transform: rotate(180deg); 
+}
+
+.nav-dropdown .dropdown-menu {
+  overflow: hidden;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+}
+
+.nav-links .has-submenu.open .dropdown-menu { 
+  padding: 8px 0 8px 12px; 
+}
+
+.nav-links .dropdown-menu a {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-transform: none;
+  font-weight: 500;
+  background: transparent;
+}
+
+.nav-links .dropdown-menu a:hover {
+  color: var(--accent);
+  background: rgba(48, 60, 86, 0.06);
+}
+
+.nav-links .dropdown-menu .all-services-link {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* UPDATED MOBILE SOCIAL LINKS STYLE MATCHING FOOTER */
+.nav-socials {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-top: auto;
+  padding-top: 32px;
+}
+
+.nav-socials .nav-facebook {
+  text-decoration: none;
+  color: var(--text-muted, #555E6D);
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 50px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-socials .nav-facebook:hover {
+  color: var(--accent, #303C56);
+  background: rgba(48, 60, 86, 0.06);
+}
+
+.nav-socials .nav-facebook svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--accent, #303C56);
+}
+
+/* ================= MEDIA QUERIES ================= */
+@media (max-width: 1100px) {
+  .desktop-nav { display: none; }
+  .right-zone .desktop-only-util { display: none; }
+}
+
+@media (min-width: 1101px) {
+  .menu-icon { display: none; }
+  .nav-dropdown { display: none !important; }
+}
+</style>
+
+<header id="mainHeader">
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="Home">
+      <img src="images/logo.png" class="logo-img" alt="Palmetto RV Logo" />
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main Navigation">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li class="has-submenu">
+          <a href="#services" aria-haspopup="true" aria-expanded="false">Services 
+            <svg class="arrow-icon" viewBox="0 0 448 512" aria-hidden="true"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#services" class="all-services-link">All Services &rarr;</a></li>
+            <li><a href="#ac-heating">AC & Heating</a></li>
+            <li><a href="#electrical">Electrical Systems</a></li>
+            <li><a href="#plumbing">Plumbing & Leaks</a></li>
+            <li><a href="#appliances">Onboard Appliances</a></li>
+            <li><a href="#sealants">Sealant & Maintenance</a></li>
+            <li><a href="#slides-awnings">Slide-Outs & Awnings</a></li>
+            <li><a href="#generators">Onboard Generators</a></li>
+            <li><a href="#inspections">System Inspections</a></li>
+            <li><a href="#winterization">Winterization Services</a></li>
+          </ul>
+        </li>
+        <li><a href="#service-area">Areas We Serve</a></li>
+        <li><a href="#faq">FAQs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="right-zone">
+      <a href="tel:8039498308" class="phone-link desktop-only-util">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (803) 949-8308
+      </a>
+
+      <a href="https://clienthub.getjobber.com/hubs/b35a1a5d-d445-4ee9-88d7-ce3e73aaad5f/public/requests/1726575/new" target="_blank" rel="noopener noreferrer" class="book-btn desktop-only-util">
+        Book Now
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <button class="menu-icon" id="menuToggle" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav-dropdown" aria-label="Mobile Navigation">
+    <div class="mobile-utilities">
+      <a href="tel:8039498308" class="mobile-phone-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (803) 949-8308
+      </a>
+
+      <a href="https://clienthub.getjobber.com/hubs/b35a1a5d-d445-4ee9-88d7-ce3e73aaad5f/public/requests/1726575/new" target="_blank" rel="noopener noreferrer" class="mobile-book-link">
+        Book Now
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#" class="mobile-nav-close">Home</a></li>
+      <li><a href="#about" class="mobile-nav-close">About</a></li>
+      <li class="has-submenu">
+        <a  aria-expanded="false">Services
+          <svg class="arrow-icon" viewBox="0 0 448 512" aria-hidden="true"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+        </a>
+        <div class="dropdown-wrapper"> 
+          <ul class="dropdown-menu">
+            <li><a href="#services" class="mobile-nav-close all-services-link">All Services &rarr;</a></li>
+            <li><a href="#ac-heating" class="mobile-nav-close">AC & Heating</a></li>
+            <li><a href="#electrical" class="mobile-nav-close">Electrical Systems</a></li>
+            <li><a href="#plumbing" class="mobile-nav-close">Plumbing & Leaks</a></li>
+            <li><a href="#appliances" class="mobile-nav-close">Onboard Appliances</a></li>
+            <li><a href="#sealants" class="mobile-nav-close">Sealant & Maintenance</a></li>
+            <li><a href="#slides-awnings" class="mobile-nav-close">Slide-Outs & Awnings</a></li>
+            <li><a href="#generators" class="mobile-nav-close">Onboard Generators</a></li>
+            <li><a href="#inspections" class="mobile-nav-close">System Inspections</a></li>
+            <li><a href="#winterization" class="mobile-nav-close">Winterization Services</a></li>
+          </ul>
+        </div>
+      </li>
+      <li><a href="#service-area" class="mobile-nav-close">Areas We Serve</a></li>
+      <li><a href="#faq" class="mobile-nav-close">FAQs</a></li>
+      <li><a href="#contact" class="mobile-nav-close">Contact</a></li>
+    </ul>
+
+    <ul class="nav-socials">
+      <li>
+        <a href="https://www.facebook.com/PalmettoRVandcamper/" target="_blank" rel="noopener noreferrer" class="nav-facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Follow us on Facebook
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+(function() {
+  const header = document.getElementById('mainHeader');
+  const toggle = document.getElementById('menuToggle');
+  const body = document.body;
+
+  // Header scroll class toggle
+  window.addEventListener('scroll', () => {
+    if (header) {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }
+  });
+
+  // Close Mobile Overlay
+  const closeMobileMenu = () => {
+    if (header.classList.contains('mobile-open')) {
+      header.classList.remove('mobile-open');
+      body.classList.remove('lock-scroll');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }
+  };
+
+  // Hamburger button toggle
+  if (toggle) {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpening = !header.classList.contains('mobile-open');
+      header.classList.toggle('mobile-open');
+      toggle.setAttribute('aria-expanded', isOpening.toString());
+      body.classList.toggle('lock-scroll', isOpening);
+    });
+  }
+
+  // Mobile Dropdown Accordion Toggle
+  const mobileSubmenuLinks = header.querySelectorAll('.nav-links .has-submenu > a');
+  mobileSubmenuLinks.forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      // Toggle dropdown on mobile
+      const parent = anchor.parentElement;
+      const isOpen = parent.classList.toggle('open');
+      anchor.setAttribute('aria-expanded', isOpen.toString());
+    });
+  });
+
+  // Close mobile menu on clicking any navigation anchor (including dropdown items)
+  const allNavAnchors = header.querySelectorAll('a[href^="#"]');
+  allNavAnchors.forEach(link => {
+    link.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+  });
+
+  // Reset menu on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1100 && header.classList.contains('mobile-open')) {
+      closeMobileMenu();
+    }
+  });
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <style>
+    :root {
+      --accent: #303C56;
+      --accent-hover: #232C40;
+      --bg-light: #f8f9fa;
+      --text-dark: #0F1115;
+      --text-muted: #555E6D;
+      --card-bg: #ffffff;
+      --border: rgba(15, 17, 21, .08);
+      --gold: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: "Montserrat", sans-serif;
+      padding-top: 80px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HERO SECTION */
+    .hero-full-width {
+      width: 100%;
+      position: relative;
+      background: linear-gradient(
+                  to right, 
+                  rgba(15, 17, 21, 0.75) 0%, 
+                  rgba(15, 17, 21, 0.65) 40%, 
+                  rgba(15, 17, 21, 0.20) 75%, 
+                  rgba(15, 17, 21, 0.0) 100%
+                ), 
+                url('images/Banner.jpg') center/cover no-repeat;
+      color: #ffffff;
+      padding: 200px 0;
+      margin-bottom: 60px;
+      box-shadow: 0 12px 32px rgba(15, 17, 21, 0.12);
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero h1 {
+      font-size: 3.25rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      font-weight: 500;
+      max-width: 580px;
+      margin: 0 0 32px 0;
+      opacity: 0.95;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .book-btn {
+      text-decoration: none;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: 1px solid var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color .25s ease, border-color .25s ease, transform .2s ease, box-shadow .25s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .book-btn:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    .book-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+    }
+
+    /* SEO INTRO & TEXT SECTIONS */
+    .seo-intro-section,
+    .seo-content-block {
+      margin-bottom: 80px;
+      scroll-margin-top: 100px;
+    }
+
+    .seo-intro-content {
+      max-width: 850px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .seo-intro-content h2,
+    .seo-content-block h2 {
+      font-size: 2.25rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .seo-intro-content p,
+    .seo-content-block p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .seo-action-box {
+      margin-top: 32px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .phone-btn {
+      text-decoration: none;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color .25s ease, transform .2s ease;
+    }
+
+    .phone-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      color: var(--accent);
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    /* SERVICES SECTION */
+    .services-grid-wrapper {
+      scroll-margin-top: 100px;
+      margin-bottom: 80px;
+    }
+
+    .services-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .service-card {
+      flex: 1 1 320px;
+      max-width: 360px;
+      background: var(--card-bg);
+      padding: 32px 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(15, 17, 21, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card h3 {
+      margin-bottom: 12px;
+      color: var(--text-dark);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .service-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .service-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .service-list li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .secondary-btn {
+      text-decoration: none;
+      background: transparent;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 32px;
+      border-radius: 50px;
+      border: 2px solid var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color .25s ease, color .25s ease, transform .2s ease;
+    }
+
+    .secondary-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .secondary-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+    }
+
+    /* SERVICED RV TYPES GRID */
+    .rv-types-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .rv-type-item {
+      flex: 1 1 120px;
+      max-width: 145px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: var(--card-bg);
+      padding: 14px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(15, 17, 21, 0.03);
+    }
+
+    .rv-type-item img {
+      width: 100%;
+      max-width: 95px;
+      height: 65px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    .rv-type-item h3 {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    /* LOCAL PARKS & CAMPGROUNDS GRID */
+    .info-cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .info-card {
+      flex: 1 1 300px;
+      max-width: 350px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(15, 17, 21, 0.03);
+    }
+
+    .info-card h3 {
+      color: var(--accent);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* FAQ SECTION */
+    .faq-section {
+      margin-bottom: 80px;
+      scroll-margin-top: 100px;
+    }
+
+    .faq-grid {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(15, 17, 21, 0.03);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 20px 24px;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .faq-question svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2.2;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-question svg {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease;
+      padding: 0 24px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .faq-item.open .faq-answer {
+      padding: 0 24px 20px 24px;
+    }
+
+    /* CTA FORM BLOCK */
+    .contact-cta-card {
+      background: linear-gradient(135deg, var(--accent) 0%, #1a2232 100%);
+      color: #ffffff;
+      padding: 48px 32px;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 80px;
+      box-shadow: 0 12px 32px rgba(48, 60, 86, 0.15);
+      scroll-margin-top: 100px;
+    }
+
+    .contact-cta-card h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .contact-cta-card p {
+      font-size: 1rem;
+      opacity: 0.9;
+      max-width: 580px;
+      margin: 0 auto 28px auto;
+    }
+
+    .cta-form {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color .2s ease, background-color .2s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      background: #ffffff;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color .25s ease, transform .2s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      margin-top: 8px;
+    }
+
+    .form-submit-btn:hover {
+      background: #f0f2f5;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* REVIEWS SECTION */
+    .reviews-section {
+      margin-bottom: 80px;
+      scroll-margin-top: 100px;
+    }
+
+    .reviews-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .review-card {
+      flex: 1 1 280px;
+      max-width: 350px;
+      background: var(--card-bg);
+      padding: 28px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 20px rgba(15, 17, 21, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+
+    .review-text {
+      color: var(--text-dark);
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .reviewer-name {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .reviewer-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .reviews-cta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .google-btn {
+      text-decoration: none;
+      background: #ffffff;
+      color: var(--text-dark);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: background-color .25s ease, transform .2s ease, box-shadow .25s ease;
+      box-shadow: 0 4px 12px rgba(15, 17, 21, 0.05);
+    }
+
+    .google-btn:hover {
+      background: #f8f9fa;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(15, 17, 21, 0.08);
+    }
+
+    .google-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-full-width {
+        padding: 100px 0;
+        background: linear-gradient(
+                    rgba(15, 17, 21, 0.75), 
+                    rgba(15, 17, 21, 0.50)
+                  ), 
+                  url('images/Banner.jpg') center/cover no-repeat;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .hero p {
+        font-size: 1.05rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+      .rv-type-item {
+        flex: 1 1 90px;
+        max-width: 110px;
+      }
+      .service-card,
+      .info-card,
+      .review-card {
+        max-width: 100%;
+      }
+      .contact-cta-card {
+        padding: 36px 20px;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+      .reviews-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+      .reviews-cta a {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <section class="hero-full-width hero">
+    <div class="hero-content">
+      <h1>On-Site Mobile RV Repair</h1>
+      <p>We bring RV service directly to your campsite, home, or storage site.</p>
+      
+      <a href="https://clienthub.getjobber.com/hubs/b35a1a5d-d445-4ee9-88d7-ce3e73aaad5f/public/requests/1726575/new" target="_blank" rel="noopener noreferrer" class="book-btn">
+        Book Now
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- INTRO BLOCK -->
+    <section class="seo-intro-section" id="about">
+      <div class="seo-intro-content">
+        <h2>RV Issues Keeping You Stuck?</h2>
+        <p><strong>Troubleshoot on-site without the hassle of towing.</strong></p>
+        <p>Air conditioning cutting out during a hot South Carolina afternoon, water leaks under the sink, intermittent power drops, or a slide-out that won't pull back in before checkout—dealing with RV component failures is frustrating. Hooking up and towing a rig to a service facility just to figure out what is wrong takes time and extra expense.</p>
+        <p>Palmetto RV and Camper Mobile Service comes directly to where your RV is parked in West Columbia and surrounding areas. We inspect internal systems, identify the fault, and explain your options on-site so you can make informed decisions without hauling your unit to a dealership.</p>
+        
+        <div class="seo-action-box">
+          <a href="tel:+18035550199" class="phone-btn">803-555-0199</a>
+          <a href="https://clienthub.getjobber.com/hubs/b35a1a5d-d445-4ee9-88d7-ce3e73aaad5f/public/requests/1726575/new" target="_blank" rel="noopener noreferrer" class="book-btn">
+            Book Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICED RIG TYPES SECTION -->
+    <section class="seo-content-block" id="rv-types">
+      <div class="section-header">
+        <h2 class="section-title">We Service All Types of RVs</h2>
+      </div>
+      <div class="rv-types-grid">
+        <div class="rv-type-item">
+          <img src="images/Class-A.jpg" alt="Class A Motorhome">
+          <h3>Class A</h3>
+        </div>
+        <div class="rv-type-item">
+          <img src="images/Class-B.jpg" alt="Class B Camper Van">
+          <h3>Class B</h3>
+        </div>
+        <div class="rv-type-item">
+          <img src="images/Class-C.jpg" alt="Class C Motorhome">
+          <h3>Class C</h3>
+        </div>
+        <div class="rv-type-item">
+          <img src="images/5th-Wheel.jpg" alt="5th Wheel Trailer">
+          <h3>5th Wheel</h3>
+        </div>
+        <div class="rv-type-item">
+          <img src="images/Travel-Trailer.jpg" alt="Travel Trailer">
+          <h3>Travel Trailer</h3>
+        </div>
+        <div class="rv-type-item">
+          <img src="images/Toy-Hauler.jpg" alt="Toy Hauler Trailer">
+          <h3>Toy Hauler</h3>
+        </div>
+        <div class="rv-type-item">
+          <img src="images/Pop-Up.jpg" alt="Pop-Up Camper">
+          <h3>Pop-Up</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <div id="services" class="services-grid-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">Our Mobile RV Services</h2>
+        <p class="section-subtitle">Professional on-site repairs and maintenance for your RV or camper</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- AC & Heating -->
+        <div id="ac-heating" class="service-card">
+          <h3>AC & Heating</h3>
+          <p>Diagnostic, repair, and replacement services for rooftop air conditioners, heat pumps, and furnaces.</p>
+          <ul class="service-list">
+            <li>Rooftop AC Unit Repairs & Replacement</li>
+            <li>Furnace & Heat Pump Diagnostics</li>
+            <li>Thermostat & Control Board Setup</li>
+          </ul>
+        </div>
+
+        <!-- Electrical Systems -->
+        <div id="electrical" class="service-card">
+          <h3>Electrical Systems</h3>
+          <p>Troubleshooting and repairs for 12V DC battery systems and 120V AC shore power networks.</p>
+          <ul class="service-list">
+            <li>Converter & Inverter Replacements</li>
+            <li>Battery Bank Maintenance & Upgrades</li>
+            <li>Short Circuit & Wiring Repairs</li>
+          </ul>
+        </div>
+
+        <!-- Plumbing & Leaks -->
+        <div id="plumbing" class="service-card">
+          <h3>Plumbing & Leaks</h3>
+          <p>Leak detection, pipe repairs, water heater maintenance, and tank system servicing.</p>
+          <ul class="service-list">
+            <li>Freshwater Pump & Line Repairs</li>
+            <li>Water Heater Maintenance (Tank & Tankless)</li>
+            <li>Holding Tank & Valve Replacement</li>
+          </ul>
+        </div>
+
+        <!-- Onboard Appliances -->
+        <div id="appliances" class="service-card">
+          <h3>Onboard Appliances</h3>
+          <p>Repair and installation services for RV refrigerators, cooktops, ranges, and microwave units.</p>
+          <ul class="service-list">
+            <li>Absorption & 12V Refrigerator Repair</li>
+            <li>Stove & Oven Igniter Fixes</li>
+            <li>Appliance Power & Gas Diagnostics</li>
+          </ul>
+        </div>
+
+        <!-- Sealant & Maintenance -->
+        <div id="sealants" class="service-card">
+          <h3>Sealant & Roof Maintenance</h3>
+          <p>Preventative water damage services through full roof inspections, resealing, and lap sealant touch-ups.</p>
+          <ul class="service-list">
+            <li>Roof Lap Sealant Inspections</li>
+            <li>Window & Slide-Out Sealing</li>
+            <li>Preventative Leak Defense</li>
+          </ul>
+        </div>
+
+        <!-- Slide-Outs & Awnings -->
+        <div id="slides-awnings" class="service-card">
+          <h3>Slide-Outs & Awnings</h3>
+          <p>Mechanical and hydraulic slide adjustments, motor replacements, and patio awning fabric installations.</p>
+          <ul class="service-list">
+            <li>Slide Mechanism Alignment & Motors</li>
+            <li>Awning Fabric & Hardware Replacements</li>
+            <li>Slide Topper Installations</li>
+          </ul>
+        </div>
+
+        <!-- Onboard Generators -->
+        <div id="generators" class="service-card">
+          <h3>Onboard Generators</h3>
+          <p>On-site generator troubleshooting, oil and filter servicing, and carb/fuel system cleaning.</p>
+          <ul class="service-list">
+            <li>Onan Generator Diagnostics</li>
+            <li>Routine Oil & Spark Plug Service</li>
+            <li>Carburetor Cleaning & Replacement</li>
+          </ul>
+        </div>
+
+        <!-- System Inspections -->
+        <div id="inspections" class="service-card">
+          <h3>System Inspections</h3>
+          <p>Comprehensive pre-purchase, pre-trip, and preventative maintenance multi-point checks.</p>
+          <ul class="service-list">
+            <li>Pre-Purchase Inspection Reports</li>
+            <li>Annual System Safety Audits</li>
+            <li>Gas Leak & Pressure Checks</li>
+          </ul>
+        </div>
+
+        <!-- Winterization Services -->
+        <div id="winterization" class="service-card">
+          <h3>Winterization & De-Winterization</h3>
+          <p>Protecting your RV plumbing from freeze damage in late autumn and preparing it for spring travel.</p>
+          <ul class="service-list">
+            <li>Full Plumbing Blowout & Antifreeze Flush</li>
+            <li>Water Heater Bypass Setup</li>
+            <li>Springtime System Re-Commissioning</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+   <!-- SERVING LOCAL AREA SECTION -->
+<section class="seo-content-block" id="service-area" itemscope itemtype="https://schema.org/ServiceArea">
+  <div class="section-header">
+    <h2 class="section-title">Mobile Repair Services in West Columbia, SC & Surrounding Areas</h2>
+    <p class="section-subtitle">On-site technicians serving Lexington County, Richland County, and Lake Murray</p>
+  </div>
+  
+  <p>Based in <strong>West Columbia, SC</strong>, we bring fully equipped mobile service directly to your driveway, storage facility, or campsite. Avoid the hassle and expense of transport—our technicians complete professional repairs on-site throughout the Midlands.</p>
+  
+  <p><strong>Primary Service Locations:</strong></p>
+  <ul class="service-location-list">
+    <li><strong>West Columbia & Cayce:</strong> 29169, 29170, 29033</li>
+    <li><strong>Lexington & Gilbert:</strong> 29072, 29073, 29054</li>
+    <li><strong>Irmo, Chapin & Lake Murray:</strong> 29063, 29036</li>
+    <li><strong>Columbia & Pelion:</strong> Central Midlands & 29123</li>
+  </ul>
+
+  <p>We routinely travel to residences, storage lots, and local campgrounds along the <strong>I-26, I-20, I-77, and US-378</strong> corridors to serve owners across Central South Carolina.</p>
+</section>
+
+    <!-- LOCAL CAMPGROUNDS SECTION -->
+    <section class="seo-content-block" id="campgrounds">
+      <div class="section-header">
+        <h2 class="section-title">Local Parks & Campgrounds Served</h2>
+        <p class="section-subtitle">On-site service at area campgrounds and RV parks</p>
+      </div>
+      <div class="info-cards-grid">
+        <div class="info-card">
+          <h3>Barnyard RV Park (Lexington)</h3>
+          <p>Mobile repairs for guests staying off Highway 1 and I-20.</p>
+        </div>
+        <div class="info-card">
+          <h3>Dreher Island State Park (Prosperity)</h3>
+          <p>On-site service for campers along Lake Murray.</p>
+        </div>
+        <div class="info-card">
+          <h3>Sesquicentennial State Park (Columbia)</h3>
+          <p>Service available for visitors at Sesqui campground.</p>
+        </div>
+        <div class="info-card">
+          <h3>Big Rig Friendly RV Resort (West Columbia)</h3>
+          <p>Repairs brought directly to your site near I-26.</p>
+        </div>
+        <div class="info-card">
+          <h3>Woodsmoke Family Campground (Irmo)</h3>
+          <p>System repairs for sites near Lake Murray and I-26.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section" id="faq">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Details about our mobile service scope and coverage</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-1" id="faq-q-1">
+            How does mobile RV service work?
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="faq-ans-1" class="faq-answer" role="region" aria-labelledby="faq-q-1">
+            <p>We drive a service vehicle directly to your location. You do not need to pack up or tow your rig to a shop for diagnosis and house-system repairs.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-2" id="faq-q-2">
+            Are there services you do NOT offer?
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="faq-ans-2" class="faq-answer" role="region" aria-labelledby="faq-q-2">
+            <p><strong>Yes.</strong> We do not perform structural repairs (such as structural roof replacements, decking rebuilding, or wall/siding repairs). We also do not perform motorhome mechanical/engine work or chassis repair at this time. We focus exclusively on RV internal house systems (AC/heating, electrical, plumbing, appliances, slide mechanisms, and seam sealing).</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-3" id="faq-q-3">
+            What areas in the Midlands do you cover?
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="faq-ans-3" class="faq-answer" role="region" aria-labelledby="faq-q-3">
+            <p>We service West Columbia, Lexington, Cayce, Irmo, Chapin, downtown Columbia, Lake Murray, and surrounding Midlands communities.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-4" id="faq-q-4">
+            Can most issues be fixed without towing to a dealer?
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="faq-ans-4" class="faq-answer" role="region" aria-labelledby="faq-q-4">
+            <p>Yes. The majority of AC, electrical, plumbing, appliance, and slide-out issues can be diagnosed and repaired directly at your setup location.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-ans-5" id="faq-q-5">
+            How quickly can service be scheduled?
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="faq-ans-5" class="faq-answer" role="region" aria-labelledby="faq-q-5">
+            <p>Appointments are scheduled based on current service routes and location. Contact us via phone or online request to check earliest availability.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMSUBMIT CONTACT FORM CTA BLOCK -->
+    <section class="contact-cta-card" id="contact">
+      <h3>Still Have Questions?</h3>
+<p>Contact Us</p>
+
+      <form action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST" class="cta-form">
+        <!-- FormSubmit Configurations -->
+        <input type="hidden" name="_subject" value="New RV Service Request - Palmetto RV">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="Name" placeholder="John Doe" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="Phone" placeholder="(803) 555-0199" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="Email" placeholder="john@example.com" required>
+          </div>
+
+
+
+          <div class="form-group full-width">
+            <label for="message">Message</label>
+            <textarea id="message" name="Message" placeholder="Message" required></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="form-submit-btn">
+          Send Message
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section class="reviews-section" id="reviews">
+      <div class="section-header">
+        <h2 class="section-title">What Our Clients Say</h2>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Mr. Ward is the man! Extremely knowledgeable and very friendly. He fixed issues I didn't even know I had. 10/10 do recommend"</p>
+          <div class="reviewer-name">Ethan L.</div>
+          <div class="reviewer-meta">Customer</div>
+        </div>
+
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Great company, called ward this week about our camper and he came out today and was a huge help. Very knowledgeable!!!"</p>
+          <div class="reviewer-name">Steven H.</div>
+          <div class="reviewer-meta">Customer</div>
+        </div>
+
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"If there were 10 stars to give, I would do so. I would highly recommend this company to anyone."</p>
+          <div class="reviewer-name">Pattie B.</div>
+          <div class="reviewer-meta">Customer</div>
+        </div>
+      </div>
+
+      <div class="reviews-cta">
+        <a href="https://www.google.com/search?q=Palmetto+RV+and+Camper+Mobile+Service" target="_blank" rel="noopener noreferrer" class="google-btn">
+          <svg viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          See All Reviews on Google
+        </a>
+
+        <a href="https://www.google.com/search?q=Palmetto+RV+and+Camper+Mobile+Service" target="_blank" rel="noopener noreferrer" class="secondary-btn">
+          Leave Us A Review
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.parentElement;
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = item.classList.contains('open');
+        
+        // Close all items
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          const iBtn = i.querySelector('.faq-question');
+          const iAns = i.querySelector('.faq-answer');
+          if (iBtn) iBtn.setAttribute('aria-expanded', 'false');
+          if (iAns) iAns.style.maxHeight = null;
+        });
+        
+    
+        if (!isOpen) {
+          item.classList.add('open');
+          button.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = (answer.scrollHeight + 10) + 'px';
+        }
+      });
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+/* ================= FOOTER SYSTEM STYLES ================= */
+.site-footer {
+  background: var(--bg, #FFFFFF);
+  color: var(--text, #0F1115);
+  font-family: "Montserrat", sans-serif;
+  border-top: 1px solid var(--border, rgba(15, 17, 21, .08));
+  padding: 64px 0 32px 0;
+  margin-top: auto;
+}
+
+.footer-inner {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr 1fr;
+  gap: 48px;
+}
+
+/* LEFT COLUMN: BRAND & CONTACT INFO */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Increased Square Logo Dimensions */
+.footer-logo-img {
+  height: 150px;
+  width: 150px;
+  object-fit: contain;
+  display: block;
+}
+
+.footer-contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-phone {
+  text-decoration: none;
+  color: var(--text, #0F1115);
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.2s ease;
+}
+
+.footer-phone:hover {
+  color: var(--accent, #303C56);
+}
+
+.footer-phone svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--accent, #303C56);
+  fill: none;
+  stroke-width: 2.2;
+}
+
+.footer-address {
+  text-decoration: none;
+  color: var(--text-muted, #555E6D);
+  font-size: 0.88rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.footer-address:hover {
+  color: var(--accent, #303C56);
+}
+
+.footer-address svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--accent, #303C56);
+  fill: none;
+  stroke-width: 2.2;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.footer-facebook {
+  text-decoration: none;
+  color: var(--text-muted, #555E6D);
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.2s ease;
+}
+
+.footer-facebook:hover {
+  color: var(--accent, #303C56);
+}
+
+.footer-facebook svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--accent, #303C56);
+}
+
+/* BUSINESS HOURS COLUMN */
+.footer-hours {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-hours-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.88rem;
+  color: var(--text-muted, #555E6D);
+}
+
+.footer-hours-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer-hours-list span.day {
+  font-weight: 700;
+  color: var(--text, #0F1115);
+}
+
+/* NAV COLUMNS */
+.footer-column-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text, #0F1115);
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: var(--text-muted, #555E6D);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: var(--accent, #303C56);
+  transform: translateX(3px);
+}
+
+/* CENTERED BOTTOM BAR */
+.footer-bottom {
+  max-width: 1440px;
+  margin: 48px auto 0 auto;
+  padding: 24px 32px 0 32px;
+  border-top: 1px solid var(--border, rgba(15, 17, 21, .08));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted, #555E6D);
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 1024px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+</style>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    
+    <div class="footer-brand">
+      <a href="#" aria-label="Home">
+        <img src="images/logo.png" class="footer-logo-img" alt="Palmetto RV and Camper Mobile Service Logo" />
+      </a>
+      
+      <div class="footer-contact-block">
+        <a href="tel:8039498308" class="footer-phone">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call Us: (803) 949-8308
+        </a>
+
+        <a href="https://maps.google.com/?q=West+Columbia,+SC" target="_blank" rel="noopener noreferrer" class="footer-address">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>West Columbia, SC<br></span>
+        </a>
+
+        <a href="https://www.facebook.com/PalmettoRVandcamper/" target="_blank" rel="noopener noreferrer" class="footer-facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Follow us on Facebook
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-hours">
+      <h3 class="footer-column-title">Business Hours</h3>
+      <ul class="footer-hours-list">
+        <li>
+          <span class="day">Mon – Fri</span>
+          <span>9:00 AM – 5:00 PM</span>
+        </li>
+        <li>
+          <span class="day">Sat – Sun</span>
+          <span>Closed</span>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="footer-column-title">Company</h3>
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#service-area">Areas We Serve</a></li>
+        <li><a href="#faq">FAQs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="footer-column-title">Services</h3>
+      <ul class="footer-links">
+        <li><a href="#ac-heating">AC & Heating Repair</a></li>
+        <li><a href="#electrical">Electrical System Repair</a></li>
+        <li><a href="#plumbing">Plumbing & Leak Repair</a></li>
+        <li><a href="#appliances">Appliance Repair</a></li>
+        <li><a href="#sealants">Roof & Sealant Repair</a></li>
+        <li><a href="#services"><strong>View All Services &rarr;</strong></a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 Palmetto RV and Camper Mobile Service. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>
+
+
